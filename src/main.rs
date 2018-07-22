@@ -3,11 +3,12 @@ use std::fs::File;
 use std::path::Path;
 use std::io::prelude::*;
 
-static temp: &'static str = "Test string";
+static TEMP: &'static str = "Test string";
 
 fn main() {
     let args: Vec<String> = env::args().collect();
     println!("Calling tools with args: {:#?}", args);
+    create_file("test_file.txt".to_string(), TEMP.to_string());
 }
 
 fn create_file(target: String, content: String) {
@@ -21,7 +22,7 @@ fn create_file(target: String, content: String) {
         Ok(file) => file,
     };
 
-    match file.write_all(temp.as_bytes()) {
+    match file.write_all(&content.as_bytes()) {
         Err(why) => panic!("Couldn't write to file {}: {}",
                             display,
                             why),
