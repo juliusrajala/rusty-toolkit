@@ -1,6 +1,7 @@
 use std::env;
 use std::fs::File;
 use std::path::Path;
+use std::io::prelude::*;
 
 static temp: &'static str = "Test string";
 
@@ -24,6 +25,6 @@ fn create_file(target: String, content: String) {
         Err(why) => panic!("Couldn't write to file {}: {}",
                             display,
                             why),
-        Ok(file) => println!("Succesfully wrote to file {}", display),
+        Ok(_) => println!("Succesfully wrote to file {}", display),
     }
 }
