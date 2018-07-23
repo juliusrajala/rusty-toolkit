@@ -15,9 +15,9 @@ pub fn create_file(target: String, content: String) {
     let path = Path::new(&file_path);
     let display = path.display();
     let mut file = match fs::File::create(&path) {
-        Err(why) => panic!("Couldnt create {}: {}",
-                            display,
-                            why),
+        Err(why) => {
+            if why.kind() == ErrorKind::NotFound { create_dir(&file_path); }
+        },
         Ok(file) => file,
     };
 
